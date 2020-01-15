@@ -1,0 +1,26 @@
+{
+  "name": "studujdopravu",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "DEBUG=studujdopravu:* nodemon -L -e js,json,pug,css ./bin/www",
+    "mix": "NODE_ENV=development  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run mix -- --watch"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "laravel-mix": "^5.0.1",
+    "nodemon": "^2.0.2",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.24.4",
+    "sass-loader": "^8.0.2"
+  }
+}
