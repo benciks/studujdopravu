@@ -1,33 +1,17 @@
-const createError = require('http-errors');
+// Import modules
 const express = require('express');
 
-const config = require('./config/express')
+// Import config
+const config = require('./config/express');
+const routes = require('./config/routes');
 
-// Express instance
+// Create express instance
 const app = express();
 
-// Route imports
-const indexRouter = require('./routes/index');
-
 // Use routes
-app.use('/', indexRouter);
+app.use('/', routes);
 
+// Use express config
 config(app);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;
