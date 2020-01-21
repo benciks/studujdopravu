@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=studujdopravu:* nodemon -L -e js,json,pug,css ./bin/www",
+    "dev": "DEBUG=studujdopravu:* nodemon -e js,json,pug,css ./bin/www",
     "mix": "NODE_ENV=development  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "npm run mix -- --watch"
   },

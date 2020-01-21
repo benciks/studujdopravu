@@ -18,11 +18,23 @@ exports.postLogin = (req,res) => {
 }
 
 exports.postRegister = async (req,res) => {
-  try {
-    const hashedPassword = await argon2.hash(req.body.password, 10);
-    database.addUser(req.body.email, req.body.name, hashedPassword);
-  } catch {
-    res.redirect('/register')
+  const {email,name,password,password2} = req.body;
+  let errors = [];
+
+  if (password.length < 6) {
+    errors.push({ msg: 'Password should be at least 6 characters long'});
   }
-  res.redirect('/login');
+  if (password !== password2) {
+    errors.push({ msg: 'Passwords do not match'});
+  }
+  if(errors.length > 0) {
+    res.render('auth/register', {
+      name,
+      email,
+      errors
+    });
+  }
+
+  const hashedPassword = await argon2.hash(password);
+  database.addUser(req.body.email, req.body.name, hashedPassword);
 }

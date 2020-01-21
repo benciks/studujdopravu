@@ -7,13 +7,17 @@ block content
   form(action="/register", method="post")
     div
       label(for="name") Name
-      input(type="text" id="name" name="name" required)
+      input(type="text" id="name" name="name" value=typeof name != 'undefined' ? name : '' required)
     div
       label(for="email") Email
-      input(type="email" id="email" name="email" required)
+      input(type="email" id="email" name="email" value=typeof email != 'undefined' ? email : '' required)
     div
       label(for="password") Password
       input(type="password" id="password" name="password" required)
+    div
+      label(for="password") Repeat password
+      input(type="password" id="password2" name="password2" required)
     button(type="submit") Register
 
+  include ../partials/msg
   a(href="login") Login
