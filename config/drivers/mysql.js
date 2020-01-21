@@ -1,6 +1,19 @@
 const mysql = require('mysql2');
-const config = require('../db');
+const util = require('util');
 
-const connection = mysql.createConnection(config.development);
+module.exports = (config) => {
+  const connection = mysql.createConnection(config);
 
-module.exports = connection;
+  return {
+    query(sql,args) {
+      return util.promisify(connection.query)
+        .call(connection,sql,args);
+    },
+    close() {
+      return util.promisify(connection.end)
+        .call(connection);
+    }
+  };
+}
+
+

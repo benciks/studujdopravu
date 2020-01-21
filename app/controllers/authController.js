@@ -33,8 +33,23 @@ exports.postRegister = async (req,res) => {
       email,
       errors
     });
+  } else {
+    try {
+      let result = await database.getUser(email);
+      if (typeof result[0] !== 'undefined') {
+        errors.push({ msg: 'Email is already being used'});
+        res.render('auth/register', {
+          name,
+          email,
+          errors
+        });
+      } else {
+        const hashedPassword = await argon2.hash(password);
+        await database.addUser(email, name, hashedPassword);
+        res.redirect('/login')
+      }
+    } catch(err) {
+      throw err;
+    }
   }
-
-  const hashedPassword = await argon2.hash(password);
-  database.addUser(req.body.email, req.body.name, hashedPassword);
 }
