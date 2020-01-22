@@ -14,12 +14,12 @@ exports.getRegister = (req,res) => {
 }
 
 exports.postLogin = (req,res) => {
-  res.redirect('/');
+  console.log('Hello');
 }
 
 exports.postRegister = async (req,res) => {
   const {email,name,password,password2} = req.body;
-  let errors = [];
+  let errors = []
 
   if (password.length < 6) {
     errors.push({ msg: 'Password should be at least 6 characters long'});
@@ -36,7 +36,7 @@ exports.postRegister = async (req,res) => {
   } else {
     try {
       let result = await database.getUser(email);
-      if (typeof result[0] !== 'undefined') {
+      if (result.length > 0) {
         errors.push({ msg: 'Email is already being used'});
         res.render('auth/register', {
           name,

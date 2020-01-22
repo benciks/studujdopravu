@@ -1,8 +1,10 @@
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path')
+const path = require('path');
+const configPassport = require('./passport');
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
+  configPassport(passport);
   // View engine
   app.set('views', path.join(__dirname, '/../app/views'));
   app.set('view engine', 'pug');

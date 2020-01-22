@@ -1,12 +1,12 @@
-const router = require('express').Router();
 const home = require('../app/controllers/homeController');
 const auth = require('../app/controllers/authController');
 
-router.get('/', home.landing);
+module.exports = (app,passport) => {
+  app.get('/', home.landing);
+  app.get('/login', auth.getLogin);
+  app.get('/register', auth.getRegister);
+  app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', }), auth.postLogin);
+  app.post('/register', auth.postRegister);
+}
 
-router.get('/login', auth.getLogin);
-router.get('/register', auth.getRegister);
-router.post('/login', auth.postLogin);
-router.post('/register', auth.postRegister);
 
-module.exports = router;
