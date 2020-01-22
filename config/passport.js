@@ -6,7 +6,7 @@ const db = mysql(config.development);
 
 module.exports = function initialize(passport) {
   passport.serializeUser((user,done) => {
-    done(null, user.id);
+    done(null, user);
   });
   passport.deserializeUser( async (id, done) => {
     const result = await db.query("SELECT * FROM users WHERE id = ?",[id]);
@@ -20,17 +20,17 @@ module.exports = function initialize(passport) {
     },
     async function (username, password, done) {
       try {
-        const result = await db.query("SELECT * FROM users WHERE username = ?",[username]);
-
+        const result = await db.query("SELECT * FROM users WHERE email = ?",[username]);
+        console.log(await !argon2.verify(result[0].password, password));
         if (!result.length) {
           return done(null, false, {msg: 'No user found'});
         }
-        if (!argon2.verify(results[0].password, password)) {
-          return done(null, false, {msg: 'Wrong password'});
+        if (await argon2.verify(result[0].password, password)) {
+          return done(null, result[0]);
+        } else {
+          return done(null, false, console.log("Wrong password"));
         }
-
-        return done(null, result[0])
-      } catch(e) {
+      } catch(err) {
         done(null, err);
       }
     })
