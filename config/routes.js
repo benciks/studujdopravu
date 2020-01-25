@@ -5,16 +5,16 @@ module.exports = (app,passport) => {
   app.get('/', home.landing);
 
   app.get('/login', auth.getLogin);
-  app.get('/register', auth.getRegister);
   app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
   }));
+  app.get('/register', auth.getRegister);
   app.post('/register', auth.postRegister);
+  app.get('/logout', auth.getLogout);
 
   app.get('/admin', home.getAdmin);
-  app.get('/logout', auth.logout);
 }
 
 
