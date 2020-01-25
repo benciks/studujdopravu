@@ -17,5 +17,5 @@ module.exports = [
     saveUninitialized: false
   }),
   passport.initialize(),
-  passport.session()
+  passport.session(),
 ]

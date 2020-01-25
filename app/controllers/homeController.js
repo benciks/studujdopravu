@@ -1,14 +1,14 @@
-exports.landing = (req,res) => {
+exports.landing = (req, res) => {
   res.render('home', {
-    title: 'StudujDopravu'
+    title: 'StudujDopravu',
   })
 }
 
-exports.getAdmin = (req,res) => {
+exports.getAdmin = (req, res) => {
   if (req.user) {
     res.render('home', {
       title: 'Admin',
-      loggedin: true
+      loggedin: true,
     });
   } else {
     res.redirect('/login')

@@ -9,7 +9,7 @@ module.exports = (app,passport) => {
   app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
-    failureFlash: true
+    failureFlash: true,
   }));
   app.post('/register', auth.postRegister);
 
