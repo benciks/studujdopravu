@@ -3,10 +3,18 @@ const auth = require('../app/controllers/authController');
 
 module.exports = (app,passport) => {
   app.get('/', home.landing);
+
   app.get('/login', auth.getLogin);
   app.get('/register', auth.getRegister);
-  app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', }), auth.postLogin);
+  app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  }));
   app.post('/register', auth.postRegister);
+
+  app.get('/admin', home.getAdmin);
+  app.get('/logout', auth.logout);
 }
 
 

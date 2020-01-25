@@ -8,7 +8,7 @@ async function createUser() {
     email VARCHAR(100) NOT NULL, \
     username VARCHAR(100) NOT NULL, \
     password VARCHAR(100) NOT NULL, \
-      PRIMARY KEY(user_id))");
+    PRIMARY KEY(user_id))");
 }
 
 exports.addUser = async (email, name, hashedPassword) => {
@@ -20,11 +20,21 @@ exports.addUser = async (email, name, hashedPassword) => {
   }
 }
 
-exports.getUser = async (email) => {
+exports.getUserByEmail = async (email) => {
   try {
     await createUser();
-    const results = await db.query("SELECT * FROM users WHERE email=?", [email]);
-    return results;
+    const result = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+    return result;
+  } catch(err) {
+    throw err;
+  }
+}
+
+exports.getUserById = async (id) => {
+  try {
+    await createUser();
+    const result = await db.query("SELECT * FROM users WHERE user_id = ?", [id]);
+    return result;
   } catch(err) {
     throw err;
   }

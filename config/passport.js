@@ -1,37 +1,35 @@
 const LocalStrategy = require('passport-local').Strategy
 const argon2 = require('argon2');
-const mysql = require('./drivers/mysql');
-const config = require('./db');
-const db = mysql(config.development);
+const db = require('../app/models/authModel');
 
 module.exports = function initialize(passport) {
   passport.serializeUser((user,done) => {
-    done(null, user);
+    done(null, user.user_id);
   });
   passport.deserializeUser( async (id, done) => {
-    const result = await db.query("SELECT * FROM users WHERE id = ?",[id]);
-    done(err, result[0]);
+    const result = await db.getUserById(id);
+    done(null, result[0]);
   });
 
   passport.use(
     new LocalStrategy({
       usernameField: 'email',
-      passwordField: 'passoword'
+      passwordField: 'password'
     },
-    async function (username, password, done) {
+    async (username, password, done) => {
       try {
-        const result = await db.query("SELECT * FROM users WHERE email = ?",[username]);
-        console.log(await !argon2.verify(result[0].password, password));
+        const result = await db.getUserByEmail(username);
+
         if (!result.length) {
-          return done(null, false, {msg: 'No user found'});
+          return done(null, false, {message: 'Incorrect user'});
         }
         if (await argon2.verify(result[0].password, password)) {
           return done(null, result[0]);
         } else {
-          return done(null, false, console.log("Wrong password"));
+          return done(null, false, {message: 'Incorrect password'});
         }
       } catch(err) {
-        done(null, err);
+        done(null,err);
       }
     })
   );
