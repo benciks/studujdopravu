@@ -1,7 +1,7 @@
 exports.landing = (req, res) => {
   res.render('home', {
     title: 'StudujDopravu',
-  })
+  });
 }
 
 exports.getAdmin = (req, res) => {
