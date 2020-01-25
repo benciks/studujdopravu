@@ -5,7 +5,7 @@ module.exports = (config) => {
   const connection = mysql.createConnection(config);
 
   return {
-    query(sql,args) {
+    query(sql, args) {
       return util.promisify(connection.query)
         .call(connection,sql,args);
     },

@@ -7,7 +7,7 @@ const routes = require('./config/routes');
 const app = express();
 
 app.use(middleware);
-routes(app,passport);
+routes(app, passport);
 configure(app, passport);
 
 module.exports = app;

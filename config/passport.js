@@ -3,7 +3,7 @@ const argon2 = require('argon2');
 const db = require('../app/models/authModel');
 
 module.exports = function initialize(passport) {
-  passport.serializeUser((user,done) => {
+  passport.serializeUser((user, done) => {
     done(null, user.user_id);
   });
   passport.deserializeUser( async (id, done) => {
@@ -28,8 +28,8 @@ module.exports = function initialize(passport) {
         } else {
           return done(null, false, {message: 'Incorrect password'});
         }
-      } catch(err) {
-        done(null,err);
+      } catch (err) {
+        done(null, err);
       }
     })
   );

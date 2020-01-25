@@ -14,8 +14,8 @@ async function createUser() {
 exports.addUser = async (email, name, hashedPassword) => {
   try {
     await createUser();
-    await db.query("INSERT INTO users(email,username,password) VALUES (?,?,?)", [email,name,hashedPassword]);
-  } catch(err) {
+    await db.query("INSERT INTO users(email, username, password) VALUES (?,?,?)", [email, name, hashedPassword]);
+  } catch (err) {
     throw err;
   }
 }
@@ -25,7 +25,7 @@ exports.getUserByEmail = async (email) => {
     await createUser();
     const result = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     return result;
-  } catch(err) {
+  } catch (err) {
     throw err;
   }
 }
@@ -35,7 +35,7 @@ exports.getUserById = async (id) => {
     await createUser();
     const result = await db.query("SELECT * FROM users WHERE user_id = ?", [id]);
     return result;
-  } catch(err) {
+  } catch (err) {
     throw err;
   }
 }
