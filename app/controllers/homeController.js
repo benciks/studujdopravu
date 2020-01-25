@@ -1,16 +1,4 @@
-exports.landing = (req, res) => {
-  res.render('home', {
-    title: 'StudujDopravu',
-  });
-}
+const landing = require('./home');
 
-exports.getAdmin = (req, res) => {
-  if (req.user) {
-    res.render('home', {
-      title: 'Admin',
-      loggedin: true,
-    });
-  } else {
-    res.redirect('/login')
-  }
-}
+exports.landing = landing.get;
+

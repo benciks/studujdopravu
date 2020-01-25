@@ -1,5 +1,6 @@
 const home = require('../app/controllers/homeController');
 const auth = require('../app/controllers/authController');
+const admin = require('../app/controllers/adminController');
 
 module.exports = (app,passport) => {
   app.get('/', home.landing);
@@ -14,7 +15,7 @@ module.exports = (app,passport) => {
   app.post('/register', auth.postRegister);
   app.get('/logout', auth.getLogout);
 
-  app.get('/admin', home.getAdmin);
+  app.get('/admin', admin.getAdmin);
 }
 
 
