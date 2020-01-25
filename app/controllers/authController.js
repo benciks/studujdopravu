@@ -29,7 +29,7 @@ exports.postRegister = async (req, res) => {
     res.render('auth/register', {name, email, errors});
   } else {
     try {
-      let result = await database.getUser('email', email);
+      let result = await database.getUserById(email);
 
       if (result.length > 0) {
         errors.push({ msg: 'Email is already being used'});
