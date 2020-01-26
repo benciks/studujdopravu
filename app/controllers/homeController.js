@@ -1,5 +1,4 @@
-exports.landing = (req,res) => {
-    res.render('home', { 
-        title: 'StudujDopravu' 
-    });
-}
+const landing = require('./home');
+
+exports.landing = landing.get;
+
