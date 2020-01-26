@@ -4,7 +4,7 @@ const database = require('../../models/authModel');
 exports.get = (req, res) => {
   res.render('auth/register', {
     title: "Register",
-  })
+  });
 }
 
 exports.post = async (req, res) => {
