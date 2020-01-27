@@ -3,7 +3,3 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-
-  if loggedin
-    form(action="/logout", method="get")
-      button(type="submit") Log Out
