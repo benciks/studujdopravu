@@ -1,5 +1,6 @@
 const create = require('./create');
 const remove = require('./remove');
+const edit = require('./edit');
 const db = require('../../../models/schoolModel');
 
 exports.get = async (req, res) => {
@@ -16,3 +17,5 @@ exports.getCreate = create.get;
 exports.postCreate = create.post;
 exports.validateCreate = create.validate;
 exports.postRemove = remove.post;
+exports.getEdit = edit.get;
+exports.postEdit = edit.post;

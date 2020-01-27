@@ -10,3 +10,6 @@ exports.postCreateSchool = schools.postCreate;
 exports.validateSchool = schools.validateCreate;
 
 exports.postRemoveSchool = schools.postRemove;
+
+exports.getEditSchool = schools.getEdit;
+exports.postEditSchool = schools.postEdit;

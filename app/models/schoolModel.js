@@ -32,9 +32,33 @@ exports.getSchool = async () => {
   }
 }
 
+exports.getSchoolById = async (id) => {
+  try {
+    return await db.query("SELECT * FROM schools WHERE id=?", [id]);
+  } catch (err) {
+    throw err;
+  }
+}
+
 exports.removeSchoolById = async (id) => {
   try {
     await db.query("DELETE FROM schools WHERE id=?", [id]);
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.updateSchoolById = async (name, link, city, street, postcode, description, id) => {
+  try {
+    await db.query("UPDATE schools \
+    SET \
+      name=?, \
+      link=?, \
+      city=?, \
+      street=?, \
+      postcode=?, \
+      description=? \
+    WHERE id=?", [name, link, city, street, postcode, description, id]);
   } catch (err) {
     throw err;
   }
