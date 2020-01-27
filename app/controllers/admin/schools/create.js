@@ -2,18 +2,26 @@ const db = require('../../../models/schoolModel');
 const { check, validationResult } = require('express-validator');
 
 exports.get = (req, res) => {
-  res.render('admin/schools/create');
+  if (req.user) {
+    res.render('admin/schools/create');
+  } else {
+    res.redirect('/login');
+  }
 }
 
 exports.post = (req,res) => {
-  const validation = validationResult(req);
+  if (req.user) {
+    const validation = validationResult(req);
 
-  if (!validation.isEmpty()) {
-    return res.render('admin/schools/create', {errors: validation.errors});
+    if (!validation.isEmpty()) {
+      return res.render('admin/schools/create', {errors: validation.errors});
+    }
+    const { name, link, street, city, postcode, description } = req.body;
+    db.addSchool(name, link, street, city, postcode, description);
+    res.redirect('/admin/schools');
+  } else {
+    res.redirect('/login');
   }
-  const { name, link, street, city, postcode, description } = req.body;
-  db.addSchool(name, link, street, city, postcode, description);
-  res.redirect('/');
 }
 
 exports.validate = () => {

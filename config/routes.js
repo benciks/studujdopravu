@@ -19,6 +19,7 @@ module.exports = (app,passport) => {
   app.get('/admin/schools', admin.getSchools);
   app.get('/admin/schools/create', admin.getCreateSchool);
   app.post('/admin/schools/create', admin.validateSchool(), admin.postCreateSchool);
+  app.post('/admin/schools/:schoolId/remove', admin.postRemoveSchool);
 }
 
 

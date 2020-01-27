@@ -23,10 +23,18 @@ exports.addSchool = async (name, link, street, city, postcode, description) => {
   }
 }
 
-exports.getSchoolByLink = async (link) => {
+exports.getSchool = async () => {
   try {
     await createSchool();
-    await db.query("SELECT * FROM schools WHERE link=?", [link]);
+    return await db.query("SELECT * FROM schools");
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.removeSchoolById = async (id) => {
+  try {
+    await db.query("DELETE FROM schools WHERE id=?", [id]);
   } catch (err) {
     throw err;
   }
