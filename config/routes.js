@@ -7,7 +7,7 @@ module.exports = (app,passport) => {
 
   app.get('/login', auth.getLogin);
   app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/admin',
     failureRedirect: '/login',
     failureFlash: true,
   }));
@@ -16,6 +16,12 @@ module.exports = (app,passport) => {
   app.get('/logout', auth.getLogout);
 
   app.get('/admin', admin.getAdmin);
+  app.get('/admin/schools', admin.getSchools);
+  app.get('/admin/schools/create', admin.getCreateSchool);
+  app.post('/admin/schools/create', admin.validateSchool(), admin.postCreateSchool);
+  app.post('/admin/schools/:schoolId/remove', admin.postRemoveSchool);
+  app.get('/admin/schools/:schoolId/edit', admin.getEditSchool);
+  app.post('/admin/schools/:schoolId/edit', admin.validateSchool(), admin.postEditSchool);
 }
 
 
