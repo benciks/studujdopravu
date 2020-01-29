@@ -16,6 +16,8 @@ module.exports = (app,passport) => {
   app.get('/logout', auth.getLogout);
 
   app.get('/admin', admin.getAdmin);
+  app.get('/admin/editor', admin.getEditor);
+  app.post('/admin/editor', admin.postEditor);
 }
 
 
