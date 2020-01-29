@@ -3,3 +3,4 @@ public
 mix-manifest.json
 .env
 .idea
+.cache

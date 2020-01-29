@@ -1,0 +1,16 @@
+extends ../../layout
+
+block content
+  h1 Schools
+  a(href="/admin/schools/create") Add school
+
+  if !schools.length
+    p There are no schools in database
+
+  if typeof schools != 'undefined'
+    each item in schools
+      li
+        div
+          a(href="/admin/schools/" + item.id + "/edit")= item.name
+          form(action="/admin/schools/" + item.id + "/remove", method="post")
+            button(type="submit") Remove
