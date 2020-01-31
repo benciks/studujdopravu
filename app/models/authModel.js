@@ -15,6 +15,7 @@ exports.addUser = async (email, name, hashedPassword) => {
   try {
     await createUser();
     await db.query("INSERT INTO users(email, username, password) VALUES (?,?,?)", [email, name, hashedPassword]);
+    res.redirect('/admin/schools');
   } catch (err) {
     throw err;
   }
