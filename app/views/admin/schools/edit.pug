@@ -22,7 +22,7 @@ block content
     div
       label(for="description") Description
       input(type="text" id="description" name="description" value=typeof description != 'undefined' ? description : '')
-    button(type="submit") Add school
+    button(type="submit") Update school
 
   if typeof errors != 'undefined'
     each error in errors

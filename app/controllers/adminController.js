@@ -1,11 +1,16 @@
 const landing = require('./admin');
-const editor = require('./admin/editor');
 const schools = require('./admin/schools');
+const pages = require('./admin/pages');
 
 exports.getAdmin = landing.get;
 
-exports.getEditor = editor.get;
-exports.postEditor = editor.post;
+exports.getPages = pages.get;
+exports.getCreatePage = pages.getCreate;
+exports.postCreatePage = pages.postCreate;
+exports.validatePage = pages.validate;
+exports.postRemovePage = pages.postRemove;
+exports.getEditPage = pages.getEdit;
+exports.postEditPage = pages.postEdit;
 
 exports.getSchools = schools.get;
 exports.getCreateSchool = schools.getCreate;

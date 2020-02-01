@@ -4,8 +4,9 @@ block content
   h1 Admin
   p Welcome to Admin
 
-  if loggedin
-    form(action="/logout", method="get")
-      button(type="submit") Log Out
+  form(action="/logout", method="get")
+    button(type="submit") Log Out
 
   a(href="/admin/schools") Schools
+  br
+  a(href="/admin/pages") Pages

@@ -1,8 +1,13 @@
-exports.get = (req, res) => {
+const db = require('../../models/editorModel');
+
+exports.get = async (req, res) => {
   if (req.user) {
+    const result = await db.getArticle(3);
+    const content = result[0].content;
+
     res.render('admin/landing', {
       title: 'Admin',
-      loggedin: true,
+      content: content,
     });
   } else {
     res.redirect('/login')
