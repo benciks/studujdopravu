@@ -5,6 +5,7 @@ const admin = require('../app/controllers/adminController');
 module.exports = (app,passport) => {
   app.get('/', home.landing);
 
+  // Auth
   app.get('/login', auth.getLogin);
   app.post('/login', passport.authenticate('local', {
     successRedirect: '/admin',
@@ -15,7 +16,18 @@ module.exports = (app,passport) => {
   app.post('/register', auth.postRegister);
   app.get('/logout', auth.getLogout);
 
+  // Admin
   app.get('/admin', admin.getAdmin);
+
+  // Pages
+  app.get('/admin/pages', admin.getPages);
+  app.get('/admin/pages/create', admin.getCreatePage);
+  app.post('/admin/pages/create', admin.validatePage(), admin.postCreatePage);
+  app.post('/admin/pages/:pageId/remove', admin.postRemovePage);
+  app.get('/admin/pages/:pageId/edit', admin.getEditPage);
+  app.post('/admin/pages/:pageId/edit', admin.validatePage(), admin.postEditPage);
+
+  // Schools
   app.get('/admin/schools', admin.getSchools);
   app.get('/admin/schools/create', admin.getCreateSchool);
   app.post('/admin/schools/create', admin.validateSchool(), admin.postCreateSchool);

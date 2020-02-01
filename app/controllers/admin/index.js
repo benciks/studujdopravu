@@ -1,8 +1,8 @@
-exports.get = (req, res) => {
+exports.get = async (req, res) => {
   if (req.user) {
     res.render('admin/landing', {
       title: 'Admin',
-      loggedin: true,
+      user: req.user.username
     });
   } else {
     res.redirect('/login')

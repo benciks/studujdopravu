@@ -1,0 +1,16 @@
+extends ../../layout
+
+block content
+  h1 Pages
+  a(href="/admin/pages/create") Add page
+
+  if !pages.length
+    p There are no pages in database
+
+  if typeof pages != 'undefined'
+    each item in pages
+      li
+        div
+          a(href="/admin/pages/" + item.id + "/edit")= item.name
+          form(action="/admin/pages/" + item.id + "/remove", method="post")
+            button(type="submit") Remove
