@@ -1,10 +1,9 @@
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt');
-const db = require('../app/models/authModel');
+const db = require('../app/models/userModel');
 
 module.exports = function initialize(passport) {
   passport.serializeUser((user, done) => {
-    console.log(user);
     done(null, user.user_id);
   });
   passport.deserializeUser( async (id, done) => {

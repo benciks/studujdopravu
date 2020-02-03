@@ -36,7 +36,10 @@ module.exports = (app,passport) => {
   // Users
   app.get('/admin/users', admin.getUsers);
   app.get('/admin/users/create', admin.getCreateUser);
-  app.post('/admin/users/create', admin.validateUser(), admin.postCreateUser);
+  app.post('/admin/users/create', admin.validateCreateUser(), admin.postCreateUser);
+  app.post('/admin/users/:userId/remove', admin.postRemoveUser);
+  app.get('/admin/users/:userId/edit', admin.getEditUser);
+  app.post('/admin/users/:userId/edit', admin.validateEditUser(), admin.postEditUser);
 }
 
 

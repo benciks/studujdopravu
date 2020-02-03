@@ -40,11 +40,42 @@ exports.getUserById = async (id) => {
   }
 }
 
-exports.getUserInfo = async () => {
+exports.getUser = async () => {
   try {
     await createUser();
-    const result = await db.query("SELECT user_id, email, username FROM users");
+    const result = await db.query("SELECT * FROM users");
     return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.removeUserById = async (id) => {
+  try {
+    await db.query("DELETE FROM users WHERE user_id=?", [id]);
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.updateUserInfoById = async (username, email, id) => {
+  try {
+    await db.query("UPDATE users \
+    SET \
+      username=?, \
+      email=? \
+    WHERE user_id=?", [username, email, id]);
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.updatePasswordById = async (password, id) => {
+  try {
+    await db.query("UPDATE users \
+    SET \
+      password=? \
+    WHERE user_id=?", [password, id]);
   } catch (err) {
     throw err;
   }
