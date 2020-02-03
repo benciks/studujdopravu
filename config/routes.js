@@ -12,8 +12,6 @@ module.exports = (app,passport) => {
     failureRedirect: '/login',
     failureFlash: true,
   }));
-  app.get('/register', auth.getRegister);
-  app.post('/register', auth.postRegister);
   app.get('/logout', auth.getLogout);
 
   // Admin
@@ -34,6 +32,11 @@ module.exports = (app,passport) => {
   app.post('/admin/schools/:schoolId/remove', admin.postRemoveSchool);
   app.get('/admin/schools/:schoolId/edit', admin.getEditSchool);
   app.post('/admin/schools/:schoolId/edit', admin.validateSchool(), admin.postEditSchool);
+
+  // Users
+  app.get('/admin/users', admin.getUsers);
+  app.get('/admin/users/create', admin.getCreateUser);
+  app.post('/admin/users/create', admin.validateUser(), admin.postCreateUser);
 }
 
 

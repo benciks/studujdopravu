@@ -15,7 +15,6 @@ exports.addUser = async (email, name, hashedPassword) => {
   try {
     await createUser();
     await db.query("INSERT INTO users(email, username, password) VALUES (?,?,?)", [email, name, hashedPassword]);
-    res.redirect('/admin/schools');
   } catch (err) {
     throw err;
   }
@@ -35,6 +34,16 @@ exports.getUserById = async (id) => {
   try {
     await createUser();
     const result = await db.query("SELECT * FROM users WHERE user_id = ?", [id]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.getUserInfo = async () => {
+  try {
+    await createUser();
+    const result = await db.query("SELECT user_id, email, username FROM users");
     return result;
   } catch (err) {
     throw err;
