@@ -1,0 +1,26 @@
+extends ../../layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  form(action="/admin/users/create", method="post")
+    div
+      label(for="name") Name
+      input(type="text" id="name" name="name" value=typeof name != 'undefined' ? name : '' required)
+    div
+      label(for="email") Email
+      input(type="email" id="email" name="email" value=typeof email != 'undefined' ? email : '' required)
+    div
+      label(for="password") Password
+      input(type="password" id="password" name="password" required)
+    div
+      label(for="password") Repeat password
+      input(type="password" id="password2" name="password2" required)
+    button(type="submit") Register
+
+  if typeof errors != 'undefined'
+    each error in errors
+        li= error.msg
+
+  a(href="login") Login

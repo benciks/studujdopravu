@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy
-const argon2 = require('argon2');
-const db = require('../app/models/authModel');
+const bcrypt = require('bcrypt');
+const db = require('../app/models/userModel');
 
 module.exports = function initialize(passport) {
   passport.serializeUser((user, done) => {
@@ -23,7 +23,7 @@ module.exports = function initialize(passport) {
         if (!result.length) {
           return done(null, false, {message: 'Incorrect user'});
         }
-        if (await argon2.verify(result[0].password, password)) {
+        if (await bcrypt.compare(password, result[0].password)) {
           return done(null, result[0]);
         } else {
           return done(null, false, {message: 'Incorrect password'});

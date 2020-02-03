@@ -1,6 +1,7 @@
 const landing = require('./admin');
 const schools = require('./admin/schools');
 const pages = require('./admin/pages');
+const users = require('./admin/users');
 
 exports.getAdmin = landing.get;
 
@@ -19,3 +20,12 @@ exports.validateSchool = schools.validateCreate;
 exports.postRemoveSchool = schools.postRemove;
 exports.getEditSchool = schools.getEdit;
 exports.postEditSchool = schools.postEdit;
+
+exports.getUsers = users.get;
+exports.getCreateUser = users.getCreate;
+exports.postCreateUser = users.postCreate;
+exports.validateCreateUser = users.validateCreate;
+exports.postRemoveUser = users.postRemove;
+exports.getEditUser = users.getEdit;
+exports.postEditUser = users.postEdit;
+exports.validateEditUser = users.validateEdit;

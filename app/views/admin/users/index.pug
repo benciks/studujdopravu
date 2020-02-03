@@ -1,0 +1,18 @@
+extends ../../layout
+
+block content
+  h1 Users
+  a(href="/admin/users/create") Add User
+
+  if !users.length
+    p There are no users in database
+
+  if typeof users != 'undefined'
+    each item in users
+      li
+        div
+          a(href="/admin/users/" + item.user_id + "/edit")= item.username
+          p= item.email
+          form(action="/admin/users/" + item.user_id + "/remove", method="post")
+            button(type="submit") Remove
+          br
