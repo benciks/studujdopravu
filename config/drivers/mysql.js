@@ -6,7 +6,7 @@ module.exports = (config) => {
 
   return {
     query(sql, args) {
-      return util.promisify(connection.query)
+      return util.promisify(connection.execute)
         .call(connection,sql,args);
     },
     close() {
