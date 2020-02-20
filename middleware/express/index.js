@@ -7,10 +7,9 @@ const flash = require('express-flash');
 
 module.exports = [
   logger('dev'),
-  express.json({ limit: '50mb' }),
+  express.json(),
   express.urlencoded({
     extended: false,
-    limit: '50mb'
   }),
   cookieParser(),
   flash(),

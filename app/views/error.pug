@@ -1,6 +1,24 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel="apple-touch-icon", sizes="180x180" href="/img/icon/apple-touch-icon.png")
+    link(rel="icon", type="image/png", sizes="32x32", href="/img/icon/favicon-32x32.png")
+    link(rel="icon", type="image/png", sizes="16x16", href="/img/icon/favicon-16x16.png")
+    link(rel="manifest", href="site.webmanifest")
+    link(rel="stylesheet", href="/styles/app.css")
+  body
+    .error-wrap
+      if error.status == '404'
+        .page-error
+          img(src="/img/svg/404.svg", alt="Chyba 404")
+          h3 Stránka sa nenašla.
+          a(href="/")
+             button.btn-primary Prejsť domov
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+      else
+        .page-error
+          img(src="/img/svg/505.svg", alt="Chyba 505")
+          h3 Vyskytla sa chyba servera.
+          a(href="/")
+            button.btn-primary Prejsť domov

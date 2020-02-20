@@ -1,11 +1,12 @@
+const createError = require('http-errors');
 const db = require('../../../models/pageModel');
 
-exports.get = async (req, res) => {
+exports.get = async (req, res, next) => {
   const result = await db.getPageByUrl(req.params.pageUrl);
   const pages = await db.getPages();
 
   if (result[0] == undefined) {
-    res.sendStatus(404);
+    next(createError(404));
     return
   } else {
     res.render('page', {
