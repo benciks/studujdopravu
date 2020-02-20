@@ -1,10 +1,17 @@
 const bcrypt = require('bcrypt');
 const db = require('../../../models/userModel');
 const { check, validationResult } = require('express-validator');
+const createError = require('http-errors');
 
-exports.get = async (req, res) => {
+exports.get = async (req, res, next) => {
   if (req.user) {
     const result = await db.getUserById(req.params.userId);
+
+    if(!result.length) {
+      next(createError(404));
+      return
+    }
+
     const { user_id, username, email} = result[0];
     res.render('admin/users/create', {
       title: 'Admin | Upraviť používateľa',

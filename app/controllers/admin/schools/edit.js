@@ -1,9 +1,16 @@
 const db = require('../../../models/schoolModel');
 const { validationResult } = require('express-validator');
+const createError = require('http-errors');
 
-exports.get = async (req,res) => {
+exports.get = async (req,res,next) => {
   if (req.user) {
     const result = await db.getSchoolById(req.params.schoolId);
+
+    if(!result.length) {
+      next(createError(404));
+      return
+    }
+
     const { id, name, link, city, street, postcode } = result[0]
     res.render('admin/schools/create', {
       title: 'Admin | Upraviť školu',

@@ -1,10 +1,17 @@
 const db = require('../../../models/pageModel');
 const { validationResult } = require('express-validator');
 const QuillDeltaToHtml = require('quill-delta-to-html').QuillDeltaToHtmlConverter;
+const createError = require('http-errors');
 
-exports.get = async (req,res) => {
+exports.get = async (req,res,next) => {
   if (req.user) {
     const result = await db.getPageById(req.params.pageId);
+
+    if(!result.length) {
+      next(createError(404));
+      return
+    }
+
     const { id, name, url, content} = result[0];
     res.render('admin/pages/create', {
       title: 'Admin | Upraviť stránku',
