@@ -6,7 +6,8 @@ exports.get = async (req, res) => {
   if (req.user) {
     const result = await db.getUserById(req.params.userId);
     const { user_id, username, email} = result[0];
-    res.render('admin/users/edit', {
+    res.render('admin/users/create', {
+      title: 'Admin | Upraviť používateľa',
       id: user_id,
       name: username,
       email: email,
@@ -20,24 +21,46 @@ exports.post = async (req, res) => {
   if (req.user) {
     const validation = validationResult(req);
     const {email, name, password, password2} = req.body;
+    const id = req.params.userId;
 
     if (!validation.isEmpty()) {
-      res.render('admin/users/:userId/edit', {name, email, errors: validation.errors});
+      res.render('admin/users/create', {
+        title: 'Admin | Upraviť používateľa',
+        id,
+        name,
+        email,
+        errors: validation.errors
+      });
+      return;
     } else {
       try {
         if (password !== password2) {
-          validation.errors.push({ msg: 'Passwords do not match'});
-          res.render('admin/users/:userId/edit', {name, email, errors: validation.errors});
+          validation.errors.push({ msg: 'Zadané heslá sa nezhodujú.'});
+          res.render('admin/users/create', {
+            title: 'Admin | Upraviť používateľa',
+            id,
+            name,
+            email,
+            errors: validation.errors
+          });
+          return;
         }
         if (!password.length) {
           await db.updateUserInfoById(name, email, req.params.userId);
           res.redirect('/admin/users');
+          return;
         } else {
           if (password.length < 6) {
-            validation.errors.push({ msg: 'Password should be at least 6 characters long'});
-            res.render('admin/users/:userId/edit', {name, email, errors: validation.errors});
+            validation.errors.push({ msg: 'Heslo musí byť dlhé aspoň 6 znakov'});
+            res.render('admin/users/create', {
+              title: 'Admin | Upraviť používateľa',
+              id,
+              name,
+              email,
+              errors: validation.errors
+            });
+            return;
           } else {
-            console.log('Updating password as well')
             const hashedPassword = await bcrypt.hash(password, 10);
             await db.updateUserInfoById(name, email, req.params.userId);
             await db.updatePasswordById(hashedPassword, req.params.userId);
@@ -55,9 +78,8 @@ exports.post = async (req, res) => {
 
 exports.validate = () => {
   let checks = [
-    check('name').not().isEmpty().withMessage('Enter name'),
-    check('email').not().isEmpty().isEmail().withMessage('Enter email'),
-    check('email').isEmail().withMessage('Please enter proper email form')
+    check('name').not().isEmpty().withMessage('Zadajte meno'),
+    check('email').not().isEmpty().isEmail().withMessage('Zadajte správnu formu emailu')
   ];
   return checks;
 }

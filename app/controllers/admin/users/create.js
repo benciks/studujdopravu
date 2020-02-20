@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 exports.get = (req, res) => {
   if (req.user) {
     res.render('admin/users/create', {
-      title: "Admin | Create user",
+      title: "Admin | Pridať používateľa",
     });
   } else {
     res.redirect('/login');
@@ -21,14 +21,14 @@ exports.post = async (req, res) => {
       res.render('admin/users/create', {name, email, errors: validation.errors});
     }
     if (password !== password2) {
-      validation.errors.push({ msg: 'Passwords do not match'});
+      validation.errors.push({ msg: 'Zadané heslá sa nezhodujú'});
       res.render('admin/users/create', {name, email, errors: validation.errors});
     } else {
       try {
         let result = await db.getUserByEmail(email);
 
         if (result.length > 0) {
-          validation.errors.push({ msg: 'Email is already being used'});
+          validation.errors.push({ msg: 'Daný email je už použitý'});
           res.render('admin/users/create', {name, email, errors: validation.errors});
         } else {
           const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,11 +44,10 @@ exports.post = async (req, res) => {
 
 exports.validate = () => {
   let checks = [
-    check('name').not().isEmpty().withMessage('Enter name'),
-    check('email').not().isEmpty().isEmail().withMessage('Enter email'),
-    check('email').isEmail().withMessage('Please enter proper email form'),
-    check('password').not().isEmpty().isLength(6).withMessage('Password should be at least 6 characters long.'),
-    check('password2').not().isEmpty().withMessage('Repeat password'),
+    check('name').not().isEmpty().withMessage('Zadajte meno'),
+    check('email').not().isEmpty().isEmail().withMessage('Zadajte email v správnom tvare'),
+    check('password').not().isEmpty().isLength(6).withMessage('Heslo musí byť dlhé aspoň 6 znakov'),
+    check('password2').not().isEmpty().withMessage('Zopakujte heslo'),
   ];
   return checks;
 }

@@ -4,7 +4,9 @@ const QuillDeltaToHtml = require('quill-delta-to-html').QuillDeltaToHtmlConverte
 
 exports.get = (req,res) => {
   if (req.user) {
-    res.render('admin/pages/create');
+    res.render('admin/pages/create', {
+      title: 'Admin | Pridať stránku',
+    });
   } else {
     res.redirect('/login');
   }
@@ -15,13 +17,20 @@ exports.post = async (req,res) => {
     const validation = validationResult(req);
 
     if (!validation.isEmpty()) {
-      return res.render('admin/pages/create', {errors: validation.errors});
+      return res.render('admin/pages/create', {
+        title: 'Admin | Pridať stránku',
+        errors: validation.errors
+      });
     } else {
       const {name, url, content } = req.body;
       const result = await db.getPageByUrl(url);
 
       if (result.length > 0) {
-        return res.render('admin/pages/create', {errors: ['Page with this url already exists']});
+        validation.errors.push({ msg: 'Stránka s danou url už existuje'});
+        return res.render('admin/pages/create', {
+          title: 'Admin | Pridať stránku',
+          errors: validation.errors
+        });
       }
 
       const delta = JSON.parse(content).ops;
@@ -38,8 +47,8 @@ exports.post = async (req,res) => {
 
 exports.validate = () => {
   let checks = [
-    check('name').not().isEmpty().withMessage('Enter name'),
-    check('url').not().isEmpty().withMessage('Enter page url'),
+    check('name').not().isEmpty({ ignore_whitespace:true }).withMessage('Zadajte meno'),
+    check('url').not().isEmpty({ ignore_whitespace:true }).trim().withMessage('Zadajte url adresu stránky'),
   ];
   return checks;
 }

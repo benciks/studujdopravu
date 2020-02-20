@@ -1,15 +1,30 @@
-extends ../layout
+extends layout
 
 block content
-  h1 Admin
-  p Welcome back, !{user}
+  .container
+    .landing
+      div
+        h1 Vitajte, !{user}!
+        p It is a long established fact that a reader will be distracted by the readable  content of a page when looking at its layout.
+        a(href="/")
+          button.btn-primary Späť na stránku
+      .landing-image
+        img(src="/img/svg/landing.svg", alt="Illustration")
 
-  form(action="/logout", method="get")
-    button(type="submit") Log Out
-
-  br
-  a(href="/admin/schools") Schools
-  br
-  a(href="/admin/pages") Pages
-  br
-  a(href="/admin/users") Users
+    h4 Štatistiky
+    .stats
+      .schools
+        div
+          i(data-feather="home")
+          p Školy
+        h3= schools
+      .pages
+        div
+          i(data-feather="file")
+          p Stránky
+        h3= pages
+      .users
+        div
+          i(data-feather="user")
+          p Používatelia
+        h3= users

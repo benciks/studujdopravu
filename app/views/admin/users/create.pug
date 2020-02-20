@@ -1,26 +1,46 @@
-extends ../../layout
+extends ../layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .createForm
+      img(src="/img/svg/users.svg", alt="Ilustrácia ľudí")
 
-  form(action="/admin/users/create", method="post")
-    div
-      label(for="name") Name
-      input(type="text" id="name" name="name" value=typeof name != 'undefined' ? name : '' required)
-    div
-      label(for="email") Email
-      input(type="email" id="email" name="email" value=typeof email != 'undefined' ? email : '' required)
-    div
-      label(for="password") Password
-      input(type="password" id="password" name="password" required)
-    div
-      label(for="password") Repeat password
-      input(type="password" id="password2" name="password2" required)
-    button(type="submit") Register
+      if typeof id != 'undefined'
+        form(action="/admin/users/" + id + "/edit", method="post")
+          if typeof errors != 'undefined'
+            .error
+              each error in errors
+                p= error.msg
+          div
+            input.input(type="text" id="name" name="name" placeholder="Meno používateľa"  required value=typeof name != 'undefined' ? name : '')
+            span.border
+          div
+            input.input(type="email" id="email" name="email" placeholder="Email"  required value=typeof email != 'undefined' ? email : '')
+            span.border
+          div
+            input.input(type="password" id="password" name="password" placeholder="Heslo")
+            span.border
+          div
+            input.input(type="password" id="password2" name="password2"   placeholder="Zopakujte heslo")
+            span.border
+          button.btn-primary(type="submit") Pridať
 
-  if typeof errors != 'undefined'
-    each error in errors
-        li= error.msg
-
-  a(href="login") Login
+      else
+        form(action="/admin/users/create", method="post")
+          if typeof errors != 'undefined'
+            .error
+              each error in errors
+                p= error.msg
+          div
+            input.input(type="text" id="name" name="name" placeholder="Meno používateľa"  required)
+            span.border
+          div
+            input.input(type="email" id="email" name="email" placeholder="Email" required)
+            span.border
+          div
+            input.input(type="password" id="password" name="password" placeholder="Heslo"   required)
+            span.border
+          div
+            input.input(type="password" id="password2" name="password2"   placeholder="Zopakujte heslo" required)
+            span.border
+          button.btn-primary(type="submit") Pridať

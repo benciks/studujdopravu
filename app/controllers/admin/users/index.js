@@ -6,7 +6,11 @@ const db = require('../../../models/userModel');
 exports.get = async (req, res) => {
   if (req.user) {
     const result = await db.getUser();
-    res.render('admin/users/index', {users: result});
+    res.render('admin/users/index', {
+      title: 'Admin | Používatelia',
+      users: result,
+      currentUser: req.user.user_id
+    });
   } else {
     res.redirect('/login');
   }

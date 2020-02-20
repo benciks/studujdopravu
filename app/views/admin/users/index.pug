@@ -1,18 +1,27 @@
-extends ../../layout
+extends ../layout
 
 block content
-  h1 Users
-  a(href="/admin/users/create") Add User
+  .container
+    .header
+      h1 Používatelia
+      p Tu môžete spravovať administrátorov stránky.
+      hr
 
-  if !users.length
-    p There are no users in database
+    .actions
+      a(href="/admin/users/create")
+        button.btn-primary Pridať používateľa
 
-  if typeof users != 'undefined'
-    each item in users
-      li
-        div
-          a(href="/admin/users/" + item.user_id + "/edit")= item.username
-          p= item.email
-          form(action="/admin/users/" + item.user_id + "/remove", method="post")
-            button(type="submit") Remove
-          br
+    .card
+      if typeof users != 'undefined'
+        each item in users
+          .userItem
+            p= item.username
+            p= item.email
+            div
+              a(href="/admin/users/" + item.user_id + "/edit")
+                button.btn-clear
+                  i(data-feather="edit")
+              if item.user_id != currentUser
+                form(action="/admin/users/" + item.user_id + "/remove", method="post")
+                  button.btn-clear(type="submit")
+                    i(data-feather="trash")

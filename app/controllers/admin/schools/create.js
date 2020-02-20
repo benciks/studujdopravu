@@ -3,7 +3,9 @@ const { check, validationResult } = require('express-validator');
 
 exports.get = (req, res) => {
   if (req.user) {
-    res.render('admin/schools/create');
+    res.render('admin/schools/create', {
+      title: 'Admin | Pridať školu'
+    });
   } else {
     res.redirect('/login');
   }
@@ -14,10 +16,13 @@ exports.post = (req,res) => {
     const validation = validationResult(req);
 
     if (!validation.isEmpty()) {
-      return res.render('admin/schools/create', {errors: validation.errors});
+      return res.render('admin/schools/create', {
+        title: 'Admin | Pridať školu',
+        errors: validation.errors
+      });
     }
-    const { name, link, street, city, postcode, description } = req.body;
-    db.addSchool(name, link, street, city, postcode, description);
+    const { name, link, street, city, postcode } = req.body;
+    db.addSchool(name, link, street, city, postcode);
     res.redirect('/admin/schools');
   } else {
     res.redirect('/login');
@@ -26,12 +31,11 @@ exports.post = (req,res) => {
 
 exports.validate = () => {
   let checks = [
-    check('name').not().isEmpty().withMessage('Enter name'),
-    check('street').not().isEmpty().withMessage('Enter street'),
-    check('city').not().isEmpty().withMessage('Enter city'),
-    check('postcode').not().isEmpty().withMessage('Enter postcode'),
-    check('link').isURL().withMessage('Enter valid url'),
-    check('postcode').isPostalCode("CZ").withMessage('Enter valid postal code')
+    check('name').not().isEmpty().withMessage('Zadajte meno školy'),
+    check('street').not().isEmpty().withMessage('Zadajte adresu'),
+    check('city').not().isEmpty().withMessage('Zadajte mesto'),
+    check('postcode').not().isEmpty().isPostalCode("CZ").withMessage('Zadajte správny formát PSČ'),
+    check('link').isURL().withMessage('Zadajte url adresu v správnom tvare'),
   ];
   return checks;
 }

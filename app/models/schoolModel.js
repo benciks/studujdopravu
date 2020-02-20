@@ -10,14 +10,13 @@ async function createSchool() {
     city VARCHAR(100) NOT NULL, \
     street VARCHAR(100) NOT NULL, \
     postcode VARCHAR(100) NOT NULL, \
-    description TEXT NOT NULL, \
     PRIMARY KEY(id))");
 }
 
-exports.addSchool = async (name, link, street, city, postcode, description) => {
+exports.addSchool = async (name, link, street, city, postcode) => {
   try {
     await createSchool();
-    await db.query("INSERT INTO schools(name, link, city, street, postcode, description) VALUES (?, ?, ?, ?, ?, ?)", [name, link, street, city, postcode, description]);
+    await db.query("INSERT INTO schools(name, link, street, city, postcode) VALUES (?, ?, ?, ?, ?)", [name, link, street, city, postcode]);
   } catch (err) {
     throw err;
   }
@@ -48,7 +47,7 @@ exports.removeSchoolById = async (id) => {
   }
 }
 
-exports.updateSchoolById = async (name, link, city, street, postcode, description, id) => {
+exports.updateSchoolById = async (name, link, city, street, postcode, id) => {
   try {
     await db.query("UPDATE schools \
     SET \
@@ -56,9 +55,8 @@ exports.updateSchoolById = async (name, link, city, street, postcode, descriptio
       link=?, \
       city=?, \
       street=?, \
-      postcode=?, \
-      description=? \
-    WHERE id=?", [name, link, city, street, postcode, description, id]);
+      postcode=? \
+    WHERE id=?", [name, link, street, city, postcode, id]);
   } catch (err) {
     throw err;
   }

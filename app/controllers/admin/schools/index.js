@@ -6,7 +6,10 @@ const db = require('../../../models/schoolModel');
 exports.get = async (req, res) => {
   if (req.user) {
     const result = await db.getSchool();
-    res.render('admin/schools/index', {schools: result});
+    res.render('admin/schools/index', {
+      title: 'Admin | Školy',
+      schools: result
+    });
   } else {
     res.redirect('/login');
   }

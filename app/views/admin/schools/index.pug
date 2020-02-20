@@ -1,16 +1,29 @@
-extends ../../layout
+extends ../layout
 
 block content
-  h1 Schools
-  a(href="/admin/schools/create") Add school
+  .container
+    .header
+      h1 Školy
+      p Tu môžete pridávať, upravovať alebo odstrániť školy v databáze.
+      hr
 
-  if !schools.length
-    p There are no schools in database
+    .actions
+      a(href="/admin/schools/create")
+        button.btn-primary(style="align-self: right;") Pridať školu
 
-  if typeof schools != 'undefined'
-    each item in schools
-      li
-        div
-          a(href="/admin/schools/" + item.id + "/edit")= item.name
-          form(action="/admin/schools/" + item.id + "/remove", method="post")
-            button(type="submit") Remove
+    .card
+      if !schools.length
+        p(style="justify-self: center") Žiadne školy v databáze
+
+      if typeof schools != 'undefined'
+        each item in schools
+          .schoolItem
+            p= item.name
+            p #{item.street}, #{item.city}
+            div
+              a(href="/admin/schools/" + item.id + "/edit")
+                button.btn-clear
+                  i(data-feather="edit")
+              form(action="/admin/schools/"+ item.id + "/remove",method="post")
+                button.btn-clear(type="submit")
+                  i(data-feather="trash")

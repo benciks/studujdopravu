@@ -1,29 +1,51 @@
-extends ../../layout
+extends ../layout
 
 block content
-  h1 Add school
+  .container
+    .createForm
+      img(src="/img/svg/schools.svg", alt="Ilustrácia školy")
 
-  form(action="/admin/schools/create", method="post")
-    div
-      label(for="name") School name
-      input(type="text" id="name" name="name" required)
-    div
-      label(for="link") Link
-      input(type="text" id="link" name="link" required)
-    div
-      label(for="street") Street
-      input(type="text" id="street" name="street" required)
-    div
-      label(for="city") City
-      input(type="text" id="city" name="city" required)
-    div
-      label(for="postcode") Postal Code
-      input(type="text" id="postcode" name="postcode" required)
-    div
-      label(for="description") Description
-      input(type="text" id="description" name="description")
-    button(type="submit") Add school
-
-  if typeof errors != 'undefined'
-    each error in errors
-        li= error.msg
+      if typeof id != 'undefined'
+        form(action="/admin/schools/" + id + "/edit", method="post")
+          if typeof errors != 'undefined'
+            .error
+              each error in errors
+                p= error.msg
+          div
+            input.input(type="text" id="name" name="name" placeholder="Názov školy" value=name required)
+            span.border
+          div
+            input.input(type="text" id="link" name="link" placeholder="Url adresa" value=link required)
+            span.border
+          div
+            input.input(type="text" id="street" name="street" placeholder="Ulica" value=street  required)
+            span.border
+          div
+            input.input(type="text" id="city" name="city" placeholder="Mesto" value=city required)
+            span.border
+          div
+            input.input(type="text" id="postcode" name="postcode" placeholder="PSČ" value=postcode required)
+            span.border
+          button.btn-primary(type="submit") Aktualizovať
+      else
+        form(action="/admin/schools/create", method="post")
+          if typeof errors != 'undefined'
+            .error
+              each error in errors
+                p= error.msg
+          div
+            input.input(type="text" id="name" name="name" placeholder="Názov školy"   required)
+            span.border
+          div
+            input.input(type="text" id="link" name="link" placeholder="Url adresa"  required)
+            span.border
+          div
+            input.input(type="text" id="street" name="street" placeholder="Ulica"   required)
+            span.border
+          div
+            input.input(type="text" id="city" name="city" placeholder="Mesto"   required)
+            span.border
+          div
+            input.input(type="text" id="postcode" name="postcode" placeholder="PSČ"   required)
+            span.border
+          button.btn-primary(type="submit") Pridať

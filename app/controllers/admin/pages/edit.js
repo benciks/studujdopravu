@@ -5,8 +5,9 @@ const QuillDeltaToHtml = require('quill-delta-to-html').QuillDeltaToHtmlConverte
 exports.get = async (req,res) => {
   if (req.user) {
     const result = await db.getPageById(req.params.pageId);
-    const { id, name, url, content} = result[0]
-    res.render('admin/pages/edit', {
+    const { id, name, url, content} = result[0];
+    res.render('admin/pages/create', {
+      title: 'Admin | Upraviť stránku',
       id: id,
       name: name,
       url: url,
@@ -22,7 +23,13 @@ exports.post = async (req,res) => {
     const validation = validationResult(req);
 
     if (!validation.isEmpty()) {
-      return res.render('admin/schools/edit', {errors: validation.errors});
+      return res.render('admin/pages/create', {
+        title: 'Admin | Upraviť stránku',
+        id: req.params.id,
+        name: req.body.name,
+        url: req.body.url,
+        errors: validation.errors
+      });
     } else {
       const { name, url, content } = req.body;
       const delta = JSON.parse(content).ops;

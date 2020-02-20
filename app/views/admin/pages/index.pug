@@ -1,16 +1,29 @@
-extends ../../layout
+extends ../layout
 
 block content
-  h1 Pages
-  a(href="/admin/pages/create") Add page
+  .container
+    .header
+      h1 Stránky
+      p Tu môžete dynamicky pridávať stránky do databázy ako aj upravovať ich obsah.
+      hr
 
-  if !pages.length
-    p There are no pages in database
+    .actions
+      a(href="/admin/pages/create")
+        button.btn-primary(style="align-self: right;") Pridať stránku
 
-  if typeof pages != 'undefined'
-    each item in pages
-      li
-        div
-          a(href="/admin/pages/" + item.id + "/edit")= item.name
-          form(action="/admin/pages/" + item.id + "/remove", method="post")
-            button(type="submit") Remove
+    .card
+      if !pages.length
+        p(style="justify-self: center") Žiadne stránky v databáze
+
+      if typeof pages != 'undefined'
+        each item in pages
+            .pageItem
+              p= item.name
+              p /#{item.url}
+              div
+                a(href="/admin/pages/" + item.id + "/edit")
+                  button.btn-clear
+                    i(data-feather="edit")
+                form(action="/admin/pages/" + item.id + "/remove", method="post")
+                  button.btn-clear(type="submit")
+                    i(data-feather="trash")

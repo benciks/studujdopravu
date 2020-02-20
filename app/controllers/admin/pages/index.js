@@ -6,7 +6,10 @@ const db = require('../../../models/pageModel');
 exports.get = async (req,res) => {
   if (req.user) {
     const result = await db.getPages();
-    res.render('admin/pages/index', {pages: result})
+    res.render('admin/pages/index', {
+      title: 'Admin | Stránky',
+      pages: result
+    });
   } else {
     res.redirect('/login');
   }
