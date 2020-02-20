@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    .page-heading
+      h1 Školy
+      hr
+
+    .card
+      if !schools.length
+        p(style="justify-self: center") Žiadne školy v databáze
+
+      if schools.length
+        .schooltitle
+          p Názov školy
+          p Adresa školy
+          p Web stránka
+        each item in schools
+          .schoolItem
+            p= item.name
+            p #{item.street}, #{item.postcode} #{item.city}
+            a(href='https://' + item.link target="_blank") #{item.link}

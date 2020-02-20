@@ -23,6 +23,14 @@ exports.post = async (req,res) => {
       });
     } else {
       const {name, url, content } = req.body;
+      if (url == 'skoly') {
+        validation.errors.push({ msg: 'Stránka s danou url už existuje'});
+        return res.render('admin/pages/create', {
+          title: 'Admin | Pridať stránku',
+          errors: validation.errors
+        });
+      }
+
       const result = await db.getPageByUrl(url);
 
       if (result.length > 0) {
@@ -34,7 +42,7 @@ exports.post = async (req,res) => {
       }
 
       const delta = JSON.parse(content).ops;
-      const converter = new QuillDeltaToHtml(delta, {});
+      const converter = new QuillDeltaToHtml(delta, {inlineStyles: true});
       const html = converter.convert();
 
       db.addPage(name, url, html);

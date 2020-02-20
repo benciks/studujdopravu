@@ -1,17 +1,26 @@
-extends ../layout
+doctype html
+html
+  head
+    title= title
+    link(rel="apple-touch-icon", sizes="180x180" href="/img/icon/apple-touch-icon.png")
+    link(rel="icon", type="image/png", sizes="32x32", href="/img/icon/favicon-32x32.png")
+    link(rel="icon", type="image/png", sizes="16x16", href="/img/icon/favicon-16x16.png")
+    link(rel="manifest", href="site.webmanifest")
+    link(rel="stylesheet", href="/styles/app.css")
+  body
+    .login
+      a(href="/")
+        img(src="/img/sd_logo.png", alt="logo")
+      form(action="/login", method="post")
+        div
+          input.input(type="email" id="email" name="email" placeholder="Zadajte email" required)
+          span.border
+        div
+          input.input(type="password" id="password" name="password" placeholder="Zadajte heslo" required)
+          span.border
+        button.btn-primary(type="submit") Prihlásiť sa
 
-block content
-  h1= title
-  p Welcome to #{title}
-
-  form(action="/login", method="post")
-    div
-      label(for="email") Email
-      input(type="email" id="email" name="email" required)
-    div
-      label(for="password") Password
-      input(type="password" id="password" name="password" required)
-    button(type="submit") Login
-
-  if messages.error
-    li= messages.error
+      if messages.error
+        .error
+          each item in messages
+            p= messages.error

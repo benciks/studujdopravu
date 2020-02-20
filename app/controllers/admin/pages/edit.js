@@ -33,7 +33,7 @@ exports.post = async (req,res) => {
     } else {
       const { name, url, content } = req.body;
       const delta = JSON.parse(content).ops;
-      const converter = new QuillDeltaToHtml(delta, {});
+      const converter = new QuillDeltaToHtml(delta, {inlineStyles: true});
       const html = converter.convert();
 
       db.updatePageById(name, url, html, req.params.pageId);

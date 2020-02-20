@@ -6,11 +6,11 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=studujdopravu:* nodemon -e js,json,pug,css ./bin/www",
     "dev-legacy": "DEBUG=studujdopravu:* nodemon -L -e js,json,pug,css ./bin/www",
-    "build": "parcel build src/js/*.js --out-dir public",
-    "parcel": "parcel watch src/js/*.js --out-dir public"
+    "build": "parcel build src/js/*.js src/img/*.png src/img/svg/*.svg src/img/icon/*.png src/styles/*.scss --out-dir public",
+    "parcel": "parcel watch src/js/*.js src/styles/*.scss --out-dir public"
   },
   "dependencies": {
-    "@ajusa/lit": "^1.1.0",
+    "@iconfu/svg-inject": "^1.2.3",
     "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -26,8 +26,9 @@
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
     "quill": "^1.3.7",
+    "quill-blot-formatter": "^1.0.5",
     "quill-delta-to-html": "^0.11.0",
-    "quill-image-resize": "^3.0.9"
+    "speakingurl": "^14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",

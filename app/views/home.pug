@@ -1,6 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .landing
+      div
+        h1 Kam na strednú?
+        p Projekt ŠTUDUJ DOPRAVU je zameraný na priblíženie možnosti štúdia v oblasti dopravy. Každoročne organizuje podujatia pre verejnosť, kde samôžete dozvedieť výhody takéhoto štúdia ako aj uplatnenie.
+        a(href="/stranky/podujatia")
+          button.btn-primary Podujatia
+      img(src="/img/svg/study.svg", alt="Ilustrácia štúdia")
+
 

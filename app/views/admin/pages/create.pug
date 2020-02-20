@@ -1,13 +1,7 @@
 extends ../layout
 
 block content
-  script.
-    function replaceSpace() {
-      let url = document.getElementById("url").value;
-      url = url.replace(/\s+/g, '-').toLowerCase();
-      document.getElementById("url").value = url;
-    }
-
+  script(src="/js/svg-inject.js")
   .container
     if typeof errors != 'undefined'
       .error
@@ -15,35 +9,34 @@ block content
           p= error.msg
 
     if typeof id != 'undefined'
-      form(action="/admin/pages/" + id +"/edit", method="post", id="identifier", onsubmit="replaceSpace()")
+      form(action="/admin/pages/" + id +"/edit", method="post", id="identifier")
         .pageInputs
           div
-            input(type="text" id="name" name="name" placeholder="Zadajte názov" class="pageName"  required value=typeof name != 'undefined' ? name : '')
+            input(type="text" id="name" name="name" placeholder="Zadajte názov" class="pageName" required value=typeof name != 'undefined' ? name : '')
             .urlInput
               label(for="url") studujdopravu.sk/
-              input(type="text" id="url" name="url" placeholder="url-stranky" class="pageUrl" required value=typeof url != 'undefined' ? url : '')
+              input(type="text" id="url" name="url" placeholder="url-stranky" class="pageUrl" readonly='readonly' required value=typeof url != 'undefined' ? url : '')
           button.btn-primary(type="submit") Uložiť
         div
           input(name="content" type="hidden" value="content")
-          #editor
-            if typeof content != 'undefined'
-              != content
+      #editor
+        if typeof content != 'undefined'
+          != content
 
     else
-      form(action="/admin/pages/create", method="post", id="identifier" onsubmit="replaceSpace()")
+      form(action="/admin/pages/create", method="post", id="identifier")
         .pageInputs
           div
             input(type="text" id="name" name="name" placeholder="Zadajte názov" class="pageName"  required value=typeof name != 'undefined' ? name : '')
             .urlInput
               label(for="url") studujdopravu.sk/
-              input(type="text" id="url" name="url" placeholder="url-stranky" class="pageUrl" required value=typeof url != 'undefined' ? url : '')
-          button.btn-primary(type="submit") Uložiť
+              input(type="text" id="url" name="url" placeholder="url-stranky" class="pageUrl" readonly='readonly' required value=typeof url != 'undefined' ? url : '')
+          button.btn-primary#submit(type="submit") Uložiť
         div
           input(name="content" type="hidden" value="content")
-          #editor
-            if typeof content != 'undefined'
-              != content
+      #editor
+        if typeof content != 'undefined'
+          != content
 
-    script(src="//cdn.quilljs.com/1.3.6/quill.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js")
-    script(src="/editor.js")
+  script(src="//cdn.quilljs.com/2.0.0-dev.3/quill.min.js")
+  script(src="/js/editor.js")

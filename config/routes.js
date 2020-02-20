@@ -3,7 +3,9 @@ const auth = require('../app/controllers/authController');
 const admin = require('../app/controllers/adminController');
 
 module.exports = (app,passport) => {
-  app.get('/', home.landing);
+  app.get('/', home.getLanding);
+  app.get('/stranky/:pageUrl', home.getPage);
+  app.get('/skoly', home.getSchools);
 
   // Auth
   app.get('/login', auth.getLogin);

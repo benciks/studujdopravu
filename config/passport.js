@@ -21,12 +21,12 @@ module.exports = function initialize(passport) {
         const result = await db.getUserByEmail(username);
 
         if (!result.length) {
-          return done(null, false, {message: 'Incorrect user'});
+          return done(null, false, {message: 'Nesprávny email'});
         }
         if (await bcrypt.compare(password, result[0].password)) {
           return done(null, result[0]);
         } else {
-          return done(null, false, {message: 'Incorrect password'});
+          return done(null, false, {message: 'Nesprávne heslo'});
         }
       } catch (err) {
         done(null, err);

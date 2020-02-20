@@ -2,8 +2,40 @@ doctype html
 html
   head
     title= title
-    link(rel="stylesheet", href="/pure.css")
-    link(rel='stylesheet', href='/admin.css')
-    link(rel="stylesheet", href="/editor.css")
+    link(rel="apple-touch-icon", sizes="180x180" href="/img/icon/apple-touch-icon.png")
+    link(rel="icon", type="image/png", sizes="32x32", href="/img/icon/favicon-32x32.png")
+    link(rel="icon", type="image/png", sizes="16x16", href="/img/icon/favicon-16x16.png")
+    link(rel="manifest", href="site.webmanifest")
+    link(rel="stylesheet", href="/styles/app.css")
   body
+    .nav-landing
+      nav
+        .nav-logo
+          a(href="/")
+            img(src="/img/sd_logo.png", alt="Logo")
+        .nav-items
+          a.link-underline(href="/skoly") Školy
+          a.link-underline(href="/stranky/podujatia") Podujatia
+          button.link-underline
+            span Stránky
+            i(data-feather="chevron-down")
+
+            ul.dropdown
+              if typeof pages != 'undefined'
+                each item in pages
+                  if item.url != 'podujatia'
+                    if item.url != 'skoly'
+                      li: a(href="/stranky/" + item.url) #{item.name}
+
     block content
+
+    .footer
+      p Vytvoril
+        |
+        |
+        a(href="https://github.com/bencikdesign" target="_blank") Šimon Benčík
+        |  ako projekt pre Stredoškolskú odbornú činnosť 2020.
+    script(src="/js/app.js")
+    script(src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js")
+    script.
+      feather.replace();

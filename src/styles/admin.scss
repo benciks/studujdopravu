@@ -9,16 +9,21 @@ $text-color: #4F5F83;
   outline: none;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: column;
 }
 
 a {
@@ -30,7 +35,11 @@ p {
   color: $bg-color;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   color: $bg-color;
 }
 
@@ -41,6 +50,7 @@ h1, h2, h3, h4, h5 {
   position: sticky;
   top: 0;
   color: white;
+  z-index: 1;
 
   a {
     text-decoration: none;
@@ -52,7 +62,7 @@ h1, h2, h3, h4, h5 {
 nav {
   background-color: $bg-color;
   border-radius: 12px;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -64,11 +74,11 @@ nav {
   }
 
   button {
-    background-color: rgba(10,10,10,0);
+    background-color: rgba(10, 10, 10, 0);
     padding: 8px 16px;
     border-radius: 8px;
     display: flex;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     justify-content: center;
     align-items: center;
@@ -86,18 +96,20 @@ nav {
 .nav-items {
   a {
     padding: 0 1em;
-    opacity: 65%;
+    opacity: .65;
     transition: .2s ease-in-out;
   }
+
   a:hover {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
 .nav-logo {
   margin-left: 1em;
+
   img {
-    height: 40px;
+    height: 64px;
     padding: 12px 0;
     width: auto;
   }
@@ -114,7 +126,9 @@ nav {
 .container {
   height: 100%;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex: 1;
 }
 
 .landing {
@@ -168,7 +182,7 @@ nav {
 }
 
 .btn-clear {
-  background-color: rgba(10,10,10,0);
+  background-color: rgba(10, 10, 10, 0);
   display: flex;
   color: $text-color;
   border: none;
@@ -209,7 +223,8 @@ nav {
       padding-left: .5em;
     }
 
-    p, h3 {
+    p,
+    h3 {
       color: white;
     }
   }
@@ -239,7 +254,7 @@ nav {
   }
 
   hr {
-    color: rgba(255,255,255,0.3)
+    color: rgba(255, 255, 255, 0.3)
   }
 }
 
@@ -335,8 +350,9 @@ nav {
   margin-bottom: 1.5em;
 }
 
-.pageName:focus, .pageUrl:focus {
-  outline:none;
+.pageName:focus,
+.pageUrl:focus {
+  outline: none;
 }
 
 #identifier {
@@ -375,6 +391,7 @@ nav {
 .ql-container {
   margin-top: 1em;
   font-size: 1em;
+  height: 500px;
 }
 
 .ql-editor {
@@ -382,7 +399,8 @@ nav {
   padding-right: 0;
 }
 
-.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
   padding-left: 0;
 }
 
@@ -428,7 +446,7 @@ input {
   border-bottom: 1px solid #ccc;
 }
 
-.input ~ .border {
+.input~.border {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -438,15 +456,39 @@ input {
   transition: .3s ease-in-out;
 }
 
-.input:focus ~ .border {
+.input:focus~.border {
   width: 100%;
   transition: 0.3s ease-in-out;
 }
 
 .error {
   margin-top: 1em;
-  border: 1px solid rgba(190,29,96, 0.6);
+  border: 1px solid rgba(190, 29, 96, 0.6);
   padding: 0 1em;
   border-radius: 8px;
-  color: #BE1D60;
+
+  p {
+    color: #BE1D60;
+  }
+}
+
+// Custom Icons
+
+.ql-toolbar.ql-snow {
+  span:last-child {
+    button {
+      margin-right: 5px;
+    }
+
+    button:hover {
+      svg>path {
+        stroke: #06c;
+      }
+    }
+
+    svg>path {
+      stroke: #444;
+      stroke-width: 1.8px;
+    }
+  }
 }

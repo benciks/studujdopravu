@@ -1,0 +1,1 @@
+import '@iconfu/svg-inject';
