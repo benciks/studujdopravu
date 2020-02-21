@@ -10,4 +10,5 @@ RUN apk add --no-cache --virtual .gyp python make automake g++ autoconf \
 COPY . .
 EXPOSE 3000
 
-RUN npm run build && npm start
+RUN npm run build
+CMD npm start
