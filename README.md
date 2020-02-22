@@ -9,9 +9,8 @@ Here you can find instruction to get this project on your machine and run develo
 ### Prerequisites
 
 Before installing, you need:
-* Node.js v12.14.1
-* npm v6.13.4 or other dependency manager like [yarn](https://github.com/yarnpkg/yarn)
-* MariaDB v10.4.11 or MySQL equivalent
+* Docker
+* docker-compose
 
 ### Installing
 
@@ -27,36 +26,23 @@ Change directory
 cd studujdopravu
 ```
 
-Install dependencies
+Clone .env.example and populate with editor of your choice
 
 ```
-npm install
+cp .env.example .env | nvim .env
 ```
 
-Compile assets using laravel-mix
+Run docker-compose
 
 ```
-npm run mix
+docker-compose up -d
 ```
-Or using `npm run watch` To compile on every change in `./src` directory.
-
-You may want to create a copy of `env.example` and populate it
-
-```
-cp .env.example .env
-```
-
-Run development server using nodemon
-
-```
-npm run dev
-```
-Use `npm run dev-legacy` if you are using WSL2.
 
 ## Built With
 
 * [Express.js](https://github.com/expressjs/express) - The web framework used
 * [MariaDB](https://github.com/MariaDB/server) - The database used
+* [Docker](https://www.docker.com/) - Docker
 
 ## Authors
 
