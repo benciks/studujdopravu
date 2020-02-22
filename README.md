@@ -29,7 +29,7 @@ cd studujdopravu
 Clone .env.example and populate with editor of your choice
 
 ```
-cp .env.example .env | nvim .env
+cp .env.example .env | $EDITOR .env
 ```
 
 Run docker-compose
