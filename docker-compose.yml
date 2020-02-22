@@ -10,7 +10,7 @@ services:
       - 3000:3000
       - 9229:9229
     env_file: ./.env
-    command: sh -c './wait-for mariadb:3306 -- npm run dev'
+    command: sh -c './wait-for mariadb:3306 -t 60 -- npm run build && npm run dev'
     links:
       - mariadb
   mariadb:
