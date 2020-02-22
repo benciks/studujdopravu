@@ -1,14 +1,19 @@
-FROM node:lts-alpine3.9
-WORKDIR /usr/src/studujdopravu
+FROM node:erbium-alpine as builder
+
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+
+RUN apk add --no-cache python make automake g++ autoconf
 
 COPY package*.json ./
+RUN npm install
 
-RUN apk add --no-cache --virtual .gyp python make automake g++ autoconf \
-    && npm install --silent \
-    && apk del .gyp
+# Second Stage
+FROM node:erbium-alpine
+
+WORKDIR /usr/src/studujdopravu
+COPY --from=builder node_modules node_modules
 
 COPY . .
-EXPOSE 3000
 
-RUN npm run build
-CMD npm start
+CMD [ "npm", "start" ]
