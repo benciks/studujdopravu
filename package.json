@@ -7,7 +7,7 @@
     "build-watch": "parcel watch src/js/*.js src/styles/*.scss --out-dir public",
     "build": "parcel build src/js/*.js src/img/*.png src/img/svg/*.svg src/img/icon/*.png src/styles/*.scss --out-dir public",
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
-    "start": "npm run build && node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "@iconfu/svg-inject": "^1.2.3",
