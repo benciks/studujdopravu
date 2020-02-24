@@ -1,0 +1,33 @@
+version: '3'
+services:
+  app:
+    container_name: studujdopravu
+    build: .
+    volumes:
+      - .:/usr/src/studujdopravu
+      - /usr/src/studujdopravu/node_modules
+    ports:
+      - 3000:3000
+      - 9229:9229
+    env_file: ./.env
+    command: sh -c './wait-for mariadb:3306 -t 60 -- npm run dev'
+    links:
+      - mariadb
+  mariadb:
+    container_name: mariadb
+    env_file: ./.env
+    image: mariadb:bionic
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      "MYSQL_USER": "${DB_USER}"
+      "MYSQL_PASSWORD": "${DB_PASSWORD}"
+      "MYSQL_DATABASE": "${DB_NAME}"
+      "MYSQL_ROOT_PASSWORD": "${DB_ROOT_PASSWORD}"
+      "MYSQL_ALLOW_EMPTY_PASSWORD": "${DB_EMPTY_PASSWORD}"
+    ports:
+      - '3306:3306'
+volumes:
+  db-data:
+

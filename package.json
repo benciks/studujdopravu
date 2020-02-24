@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "DEBUG=studujdopravu:* nodemon -e js,json,pug,css ./bin/www",
-    "dev-legacy": "DEBUG=studujdopravu:* nodemon -L -e js,json,pug,css ./bin/www",
+    "start-watch": "DEBUG=studujdopravu:* nodemon -i src/ -i public/ -e js,json,pug,css ./bin/www",
+    "build-watch": "parcel watch src/js/*.js src/styles/*.scss --out-dir public",
     "build": "parcel build src/js/*.js src/img/*.png src/img/svg/*.svg src/img/icon/*.png src/styles/*.scss --out-dir public",
-    "parcel": "parcel watch src/js/*.js src/styles/*.scss --out-dir public"
+    "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "@iconfu/svg-inject": "^1.2.3",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
+    "concurrently": "^5.1.0",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-imagemin": "^4.0.0",
