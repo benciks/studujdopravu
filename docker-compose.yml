@@ -30,6 +30,8 @@ services:
       - '3306:3306'
     command: [
       '--wait_timeout=28800',
+      '--max_allowed_packet=256M',
+      '--character-set-server=utf8'
     ]
 volumes:
   db-data:
