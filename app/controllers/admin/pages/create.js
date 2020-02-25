@@ -44,6 +44,7 @@ exports.post = async (req,res) => {
       const delta = JSON.parse(content).ops;
       const converter = new QuillDeltaToHtml(delta, {inlineStyles: true});
       const html = converter.convert();
+      console.log(typeof html)
 
       db.addPage(name, url, html);
       res.redirect('/admin/pages');
