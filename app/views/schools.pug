@@ -16,6 +16,16 @@ block content
           p Adresa školy
           p Web stránka
         each item in schools
+          .mobile-school
+              span
+                i(data-feather="home")
+                p= item.name
+              span
+                i(data-feather="map")
+                p #{item.street}, #{item.postcode} #{item.city}
+              span
+                i(data-feather="globe")
+                a(href='https://' + item.link target="_blank") #{item.link}
           .schoolItem
             p= item.name
             p #{item.street}, #{item.postcode} #{item.city}
