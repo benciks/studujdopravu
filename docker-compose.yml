@@ -28,6 +28,9 @@ services:
       "MYSQL_ALLOW_EMPTY_PASSWORD": "${DB_EMPTY_PASSWORD}"
     ports:
       - '3306:3306'
+    command: [
+      '--wait_timeout=28800',
+    ]
 volumes:
   db-data:
 
